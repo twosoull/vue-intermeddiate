@@ -9,11 +9,8 @@
     export default {
         methods : {
             addTodo() {
-                console.log(this.newTodoItem);
-                localStorage.setItem(this.newTodoItem,this.newTodoItem);
+                this.$emit("message",this.newTodoItem);
                 this.newTodoItem = '';
-
-                this.$emit("message");
             }
         }, 
         data() {
