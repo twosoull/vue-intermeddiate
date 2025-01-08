@@ -2,7 +2,7 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput v-on:message="addTodoItem"></TodoInput>
-    <TodoList v-bind:propsData="todoItems" v-on:remove="remove"></TodoList>
+    <TodoList v-bind:propsData="todoItems" v-on:remove="remove" v-on:toggleOneItem="toggleOneItem"></TodoList>
     <TodoFooter v-on:removeAll="removeAll"></TodoFooter>
   </div>
 </template>
@@ -12,7 +12,6 @@ import TodoHeader from './components/TodoHeader.vue'
 import TodoList from './components/TodoList.vue'
 import TodoInput from './components/TodoInput.vue'
 import TodoFooter from './components/TodoFooter.vue'
-
 
 
 export default {
@@ -37,8 +36,13 @@ export default {
       localStorage.setItem(newTodoItem,JSON.stringify(obj));
       this.todoItems.push(obj);
     },
+    toggleOneItem(item, index) {
+      //item.completed = !item.completed; //안티패턴
+      this.todoItems[index].completed = !this.todoItems[index].completed; //직접 값에 접근한다
+      localStorage.removeItem(item.item);
+      localStorage.setItem(item.item,JSON.stringify(item));
+    },
     removeAll() {
-      console.log('dd');
       localStorage.clear();
       this.todoItems = [];
     },
