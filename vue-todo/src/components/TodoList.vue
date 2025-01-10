@@ -1,9 +1,9 @@
 <template>
     <div>
         <TransitionGroup name="list" tag="ul">
-            <li v-for="(item,index) in propsData" v-bind:key="item.item">
+            <li v-for="(item,index) in this.$store.state.todoItems" v-bind:key="item.item">
                 <div v-on:click="toggleComplete(item, index)" v-bind:class="{good : item.completed}">췍</div>
-                {{ item.item }}
+                {{ item.item  }}
                 <button type="button" v-on:click="remove(item,index)">삭제</button>
             </li>
         </TransitionGroup>
@@ -12,13 +12,14 @@
 
 <script>
     export default {
-        props: ['propsData'],
         methods : {
             remove(item,index) {
-                this.$emit('remove', item, index);
+                //this.$emit('remove', item, index);
+                this.$store.commit('remove',{ item, index })
             },
             toggleComplete(item, index) {
-                this.$emit('toggleOneItem', item, index);
+                //this.$emit('toggleOneItem', item, index);
+                this.$store.commit('toggleOneItem', {item, index});
             }
         }
     }

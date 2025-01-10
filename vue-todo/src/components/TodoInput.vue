@@ -25,14 +25,19 @@
         methods : {
             addTodo() {
                 if( this.newTodoItem != '') {
-                    this.$emit("message",this.newTodoItem);
-                    this.newTodoItem = '';
+                    //this.$emit("message",this.newTodoItem);
+                    this.$store.commit('addOneItem', this.newTodoItem);
+                    this.clearInput();
+
                 } else {
                     this.showModal = true;
                 }
             },
             closeModal() {
                 this.showModal = false;
+            },
+            clearInput(){
+                this.newTodoItem = '';
             }
         }, 
         data() {
@@ -42,7 +47,7 @@
             }
         },
         components: {
-            'VModal' : VModal
+            VModal
         }
     }
 </script>

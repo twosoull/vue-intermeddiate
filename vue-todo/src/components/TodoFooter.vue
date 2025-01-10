@@ -9,7 +9,7 @@
     export default {
         methods : {
             removeAll() {
-                this.$emit('removeAll');
+                this.$store.commit('removeAll')
             }
         }
     }
