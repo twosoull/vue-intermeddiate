@@ -6,11 +6,11 @@
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
+
     export default {
         methods : {
-            removeAll() {
-                this.$store.commit('removeAll')
-            }
+            ...mapMutations(['removeAll'])
         }
     }
 </script>

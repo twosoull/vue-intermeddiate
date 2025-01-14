@@ -1,26 +1,26 @@
 <template>
     <div>
         <TransitionGroup name="list" tag="ul">
-            <li v-for="(item,index) in this.$store.state.todoItems" v-bind:key="item.item">
-                <div v-on:click="toggleComplete(item, index)" v-bind:class="{good : item.completed}">췍</div>
+            <li v-for="(item,index) in this.storedTodoItems" v-bind:key="item.item">
+                <div v-on:click="toggleComplete({item, index})" v-bind:class="{good : item.completed}">췍</div>
                 {{ item.item  }}
-                <button type="button" v-on:click="remove(item,index)">삭제</button>
+                <button type="button" v-on:click="remove({item,index})">삭제</button>
             </li>
         </TransitionGroup>
     </div>
 </template>
 
 <script>
+    import { mapGetters, mapMutations } from 'vuex'
+    
     export default {
-        methods : {
-            remove(item,index) {
-                //this.$emit('remove', item, index);
-                this.$store.commit('remove',{ item, index })
-            },
-            toggleComplete(item, index) {
-                //this.$emit('toggleOneItem', item, index);
-                this.$store.commit('toggleOneItem', {item, index});
-            }
+        methods: {
+            ...mapMutations({remove : 'remove',
+                toggleComplete: 'toggleOneItem'
+            }),
+        },
+        computed: {
+           ...mapGetters(['storedTodoItems'])
         }
     }
 </script>
